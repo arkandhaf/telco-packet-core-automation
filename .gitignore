@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments & Virtual Envs
+.env
+.venv/
+venv/
+ENV/
+env/
+
+# Streamlit secrets & temporary files
+.streamlit/secrets.toml
+.steamlit/
+
+# Data temporary files, local audit logs, & proprietary reference scripts
+data/*.tmp
+data/*_backup_corrupt.json
+data/audit_history.json
+data/audit/*.tmp
+data/audit/*.json
+data/*.sqlite*
+data/SCRIPT_*.txt
+data/vSCRIPT_*.txt
+*.zip
+mlruns/
+mlartifacts/
+
+# IDEs & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Astro build tooling (dist is intentionally retained for single-command startup)
+node_modules/
+/package.json
+/package-lock.json
+web/.astro/
+.npm-cache/
+data/archives/
+data/audit/archives/
+web/public/assets/relpool-app.js
+web/public/assets/relpool-app.js.map

@@ -1,0 +1,60 @@
+AUTOMATED DPI GGSN & PCRF UPCC CONFIGURATION SCRIPT (RELPOOL ENGINE)
+Group Core Planning & Engineering - MCPE Core 2026
+Requirement Type : {{ product_type }}
+User Profile     : {{ user_profile }}
+
+
+  1. DPI GGSN / PCEF RULE CONFIGURATION 
+configure
+  context {{ apn_name }}
+    
+     Application Filter Definition
+    rule-def rule_{{ app_name | lower | replace(' ', '_') }}
+      {% if "Local Apps" in app_category %}
+       Local App Target (Custom Domain/IP Matching)
+      ip server-ip-address {{ app_domain if app_domain else '0.0.0.0/0' }}
+      {% else %}
+       Well-Known App (Signature Database Match)
+      app-protocol {{ app_name | lower | replace(' ', '_') }}
+      {% endif %}
+    exit
+
+     Charging Action & Rating Group
+    charging-action action_{{ app_name | lower | replace(' ', '_') }}
+      {% if charging_type == 'Zero Rating' %}
+      billing-action egcdr rating-group 0
+       Capping Limit Allocated: {{ capping_option }}
+      {% else %}
+      billing-action egcdr rating-group 10000
+      {% endif %}
+    exit
+
+     Rulebase Definition
+    rulebase default_rulebase
+      action priority 10 rule-def rule_{{ app_name | lower | replace(' ', '_') }} charging-action action_{{ app_name | lower | replace(' ', '_') }}
+    exit
+
+    {% if header_enrichment == 'Yes' %}
+     --- HEADER ENRICHMENT CONFIGURATION ---
+    header-enrichment field-insertion
+      key {{ he_key }}
+      cipher {{ he_cipher }}
+    exit
+    {% endif %}
+  exit
+end
+
+  2. PCRF UPCC SERVICE PLAN & POLICY COUNTER 
+ QCI Assignment    : {{ qci_val }}
+ Speed Limitation  : {{ speed_limit }}
+pcrf-config
+  service-plan plan_{{ app_name | lower | replace(' ', '_') }}
+    qci {{ qci_val[0] }}
+    qos-mbr {{ speed_limit }}
+    {% if 'Throttle' in speed_limit %}
+    policy-counter-status active-throttled
+    {% else %}
+    policy-counter-status active-fullspeed
+    {% endif %}
+  exit
+end

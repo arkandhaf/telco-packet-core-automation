@@ -1,0 +1,47 @@
+# ==============================================================================
+# INDOSAT OOREDOO HUTCHISON - CORE NETWORK CLUSTER NODES
+# Group Core Planning & Engineering - MCPE Core 2026
+# ==============================================================================
+
+clusters:
+  jakarta_primary:
+    region: "Jabodetabek"
+    nodes:
+      - name: "GGSN_PCEF_JKT01"
+        vendor: "Huawei"
+        architecture: "Service-V / UPCC"
+        ip: "10.240.12.11"
+        port: 22
+        status: "ONLINE"
+        role: "Primary PCEF"
+      - name: "GGSN_PCEF_JKT02"
+        vendor: "Huawei"
+        architecture: "Service-V / UPCC"
+        ip: "10.240.12.12"
+        port: 22
+        status: "STANDBY"
+        role: "Secondary PCEF"
+      - name: "UPCC_PCRF_JKT01"
+        vendor: "Huawei"
+        architecture: "UPCC Policy Server"
+        ip: "10.240.15.20"
+        port: 22
+        status: "ONLINE"
+        role: "PCRF Active"
+
+  surabaya_dr:
+    region: "East Java & Disaster Recovery"
+    nodes:
+      - name: "GGSN_PCEF_SUB01"
+        vendor: "Huawei"
+        architecture: "Service-V / UPCC"
+        ip: "10.242.12.11"
+        port: 22
+        status: "ONLINE"
+        role: "DR PCEF"
+
+policies:
+  default_priority: 27000
+  dns_priority: 41
+  max_capping_limit_default: "20 MB/day"
+  default_apn: "internet_im3"
