@@ -1,0 +1,5 @@
+product_type,user_profile,apn_name,charging_type,rg_val,sid_val,capping_option,header_enrichment,speed_limit,qci_val,app_category,app_name,app_domain
+New Product,New,internet_im3,Zero Rating,11010,11001000,20 MB/day,No,Full Speed,9 (Default Internet),Well Known Apps,TikTok,*.tiktok.com, *.v2.tiktokcdn.com
+New Product,Existing,b2b_corporate,Special Rate (differentiate RG),20000,20001000,No Capping,No,Full Speed,9 (Default Internet),Local Apps,Gojek Driver,*.gojek.com, *.driver.gojek.co.id
+New Product,New,internet_im3,Zero Rating,30000,30001000,No Capping,No,Full Speed,1 (Voice/Low Latency),Well Known Apps,Mobile Legends,*.mobilelegends.com, *.moonton.com
+Reguler Update,Existing,internet_im3,Zero Rating,11010,11001000,No Capping,No,Full Speed,9 (Default Internet),Well Known Apps,YouTube,*.youtube.com, *.googlevideo.com
