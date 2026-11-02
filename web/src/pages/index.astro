@@ -1,0 +1,152 @@
+---
+import Icon from '../components/Icon.astro';
+import Field from '../components/Field.astro';
+import '../styles/global.css';
+import '../styles/dashboard.css';
+const steps = [
+  { name: 'Host', icon: 'globe', key: 'hosts' },
+  { name: 'Filter', icon: 'filter', key: 'filters' },
+  { name: 'Filter group', icon: 'layers', key: 'filter_group' },
+  { name: 'Charging', icon: 'route', key: 'category_group' },
+  { name: 'Rule', icon: 'link', key: 'rule_name' },
+  { name: 'User profile', icon: 'user', key: 'apn_profile' },
+];
+---
+<!doctype html>
+<html lang="en" data-motion="on">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0B0D11" />
+    <meta name="description" content="RELPOOL Core Command Center. Compile, inspect and simulate Huawei Service-V provisioning with a persistent audit trail." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>RELPOOL — Core Command Center</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#workspace">Skip to workspace</a>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="RELPOOL Core home"><span class="brand-mark"><Icon name="layers" size={23} /></span><span>RELPOOL <span class="brand-core">CORE</span><small>v2.2</small></span></a>
+      <div class="topbar-divider"></div><span class="topbar-caption">Network operations workspace</span>
+      <div class="header-right"><span class="pill lime" id="connection-state"><i class="status-dot"></i> CONNECTING</span><span class="header-team">Core Planning & Engineering<span class="team-avatar">IOH</span></span></div>
+    </header>
+    <main class="shell" id="workspace">
+      <section class="page-heading flex flex-wrap items-end justify-between gap-5">
+        <div><p class="eyebrow"><span class="eyebrow-line"></span> MOBILE CORE AUTOMATION</p><h1>Core provisioning <span>workspace.</span></h1><p class="subtitle">Configure services, inspect commands, and track every work order.</p></div>
+        <div class="workspace-meta"><span class="meta-label">ACTIVE CLUSTER</span><span id="active-node" class="node-badge"><i class="status-dot"></i> Reading node configuration…</span><span id="local-date" class="meta-date"></span></div>
+      </section>
+
+      <section class="kpi-grid" aria-label="Engine and session overview">
+        <article class="bento-card kpi"><div class="card-top"><span class="kpi-label">Engine status</span><span class="icon-tile lime"><Icon name="bolt" /></span></div><div class="kpi-value"><span id="engine-label">Checking engine</span><span class="pill lime small" id="engine-ready">CONNECTING</span></div><div class="kpi-bottom"><span class="tiny-mono" id="engine-version">v2.2-modular</span><span class="signal-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div></article>
+        <article class="bento-card kpi"><div class="card-top"><span class="kpi-label">Target architecture</span><span class="icon-tile cyan"><Icon name="layers" /></span></div><div class="kpi-value">Huawei UPCC</div><div class="kpi-bottom"><span class="tiny-mono">Service-V CLI</span><span class="pill cyan small">PCEF / PCRF</span></div></article>
+        <article class="bento-card kpi"><div class="card-top"><span class="kpi-label">Execution controls</span><span class="icon-tile purple"><Icon name="shield" /></span></div><div class="kpi-value">Simulation first</div><div class="kpi-bottom"><span class="text-muted">Rollback draft included</span><span class="pill purple small">REVIEW REQUIRED</span></div></article>
+        <article class="bento-card kpi gateway-card"><div class="card-top"><span class="kpi-label">SSH gateway</span><span class="pill yellow small" id="gateway-status">LOADING</span></div><div class="counter-grid"><div><strong data-counter="total_wo">0</strong><span>Total WO</span></div><div><strong data-counter="wo_today">0</strong><span>WO today</span></div><div><strong data-counter="generated_count">0</strong><span>Generated</span></div><div><strong data-counter="executed_count">0</strong><span>Executed</span></div></div></article>
+      </section>
+
+      <section class="workspace-toolbar flex flex-wrap items-center justify-between gap-4">
+        <div class="segmented view-switch" role="tablist" aria-label="Provisioning workspace"><button class="active" id="manual-tab" role="tab" aria-selected="true" aria-controls="manual-view" data-view="manual"><Icon name="sliders" size={16} /><span>Manual <span class="desktop-label">provisioning </span>studio</span></button><button id="batch-tab" role="tab" aria-selected="false" aria-controls="batch-view" data-view="batch"><Icon name="box" size={16} /> Batch CIQ engine</button></div>
+        <div class="workspace-utilities"><span class="pill small neutral" id="motion-status" role="status">LOADING GSAP</span><label class="motion-control" for="motion-preference">Motion<select id="motion-preference"><option value="on" selected>On</option><option value="auto">Auto</option><option value="off">Off</option></select></label><button id="replay-motion" class="btn-secondary" disabled><Icon name="undo" size={14} />Replay</button></div>
+      </section>
+
+      <section id="frontend-error" class="frontend-error" hidden role="alert"><Icon name="terminal" size={21} /><div><strong>The workspace could not finish loading.</strong><p id="frontend-error-detail">The client bundle did not start. Reload the workspace after restarting the Python server.</p></div><button id="reload-workspace" class="btn-secondary" hidden>Reload workspace</button></section>
+
+      <section id="manual-view" role="tabpanel" aria-labelledby="manual-tab">
+        <article class="bento-card pipeline-card">
+          <div class="section-heading"><div class="heading-group"><span class="icon-tile purple"><Icon name="route" /></span><div><h2>Service topology</h2><p>Six connected objects. One validated configuration.</p></div></div><span class="pill cyan small" id="preview-state"><i class="status-dot"></i> SYNCING PREVIEW</span></div>
+          <div class="pipeline-scroll" tabindex="0" role="region" aria-label="Service hierarchy; scroll horizontally to inspect all six nodes"><div class="pipeline">
+            <svg class="pipeline-lines" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true"><path class="pipeline-track" d="M100 50H1100"/><path class="data-packet" d="M100 50H1100"/>{[0, 1, 2, 3].map(() => <circle class="packet-orb" cx="100" cy="50" r="4" />)}</svg>
+            {steps.map((step, index) => <div class:list={['pipeline-node', { 'first-node': index === 0 }]}><div class="node-orbit"><Icon name={step.icon} size={22} /><span class="node-number">0{index + 1}</span></div><span class="pipeline-title">{step.name}</span><span class="pipeline-id" data-hierarchy={step.key}>—</span></div>)}
+          </div></div>
+          <div class="pipeline-footer"><span><i class="status-dot"></i> <span id="domain-count">0 domains</span> in the detection chain</span><span id="pipeline-scope">Preview uses the same sanitization as your compiler.</span></div>
+        </article>
+
+        <div class="studio-heading flex flex-wrap items-center justify-between gap-4"><div><h2>Provisioning studio <span class="section-index">01 / CONFIGURE</span></h2><p>Start with a preset or enter your CIQ parameters.</p></div><div class="presets"><span>QUICK LOAD</span><button data-preset="tiktok" class="preset active"><span class="preset-dot pink"></span>TikTok <small>B2C</small></button><button data-preset="gojek" class="preset"><span class="preset-dot green"></span>Gojek <small>B2B</small></button><button data-preset="gaming" class="preset"><span class="preset-dot violet"></span>Gaming <small>QCI 1</small></button></div></div>
+
+        <form id="provision-form" method="post" action="/api/generate">
+          <div class="form-grid">
+            <article class="bento-card form-card"><div class="form-card-heading"><span class="icon-tile purple"><Icon name="box" /></span><div><h3>Product & charging</h3><p>The foundation of your service</p></div><span class="card-index">01</span></div>
+              <Field name="product_type" label="Product requirement" options={['New Product', 'Revamp', 'Reguler Update']} />
+              <div class="field-row"><Field name="user_profile" label="User profile" options={['New', 'Existing']} /><Field name="apn_name" label="APN name" value="internet_im3" mono /></div>
+              <Field name="charging_type" label="Charging profile" options={['Zero Rating', 'Special Rate (differentiate RG)']} />
+              <div class="field-row"><Field name="rg_val" label="Rating group (RG)" value="11010" mono /><Field name="sid_val" label="Service ID (SID)" value="11001000" mono /></div>
+              <Field name="capping_option" label="Capping option" options={['No Capping', '20 MB/day', '50 MB/day', '100 MB/day']} value="20 MB/day" />
+            </article>
+            <article class="bento-card form-card"><div class="form-card-heading"><span class="icon-tile cyan"><Icon name="shield" /></span><div><h3>QoS & security</h3><p>Performance with a purpose</p></div><span class="card-index">02</span></div>
+              <Field name="speed_limit" label="Speed limitation policy" options={['Full Speed', 'Throttle 256kbps', 'Throttle 128kbps', 'Throttle 64kbps']} />
+              <Field name="qci_val" label="QCI profile" options={['9 (Default Internet)', '4 (Dedicated)', '1 (Voice/Low Latency)']} />
+              <div class="toggle-field"><div><label for="header_enrichment">Header enrichment</label><p>Attach service security tokens</p></div><label class="switch"><input type="checkbox" id="header_enrichment" name="header_enrichment" aria-label="Enable header enrichment" /><span></span></label></div>
+              <div id="he-fields" hidden><Field name="he_key" label="Enrichment key" type="password" required={false} /><Field name="he_cipher" label="Enrichment cipher" type="password" required={false} /></div>
+              <div class="info-note"><Icon name="activity" size={17} /><p>QoS, speed and capping are included as policy notes. The current core does not apply these settings.</p></div>
+            </article>
+            <article class="bento-card form-card"><div class="form-card-heading"><span class="icon-tile lime"><Icon name="globe" /></span><div><h3>Application & domains</h3><p>Make the right connections</p></div><span class="card-index">03</span></div>
+              <Field name="app_category" label="Application category" options={['Well Known Apps', 'Local Apps', 'Gaming', 'Enterprise', 'Other']} />
+              <Field name="app_name" label="Target application" value="TikTok" />
+              <label class="field"><span class="field-label">Target domains <span class="field-hint">COMMA OR NEW LINE</span></span><textarea id="app_domain" name="app_domain" rows="3" required spellcheck="false">*.tiktok.com, *.v2.tiktokcdn.com</textarea></label>
+              <div class="domain-preview-heading"><span class="status-dot"></span> SANITIZED PREVIEW</div><div id="domain-badges" class="domain-badges" aria-live="polite"></div>
+            </article>
+          </div>
+          <div class="generate-bar"><div class="generate-note"><Icon name="shield" size={18} /><span>Compile locally. Inspect every command. Execute when ready.</span></div><button type="submit" id="generate-button" class="btn-primary"><Icon name="bolt" size={18} /><span>Generate DPI & PCRF command script</span><Icon name="arrow" size={17} /></button></div>
+          <div id="compiler" class="compiler bento-card" hidden aria-live="polite">{['Sanitizing domains', 'Validating RG/SID', 'Compiling Huawei Service-V', 'Building safe rollback'].map((label, index) => <div class="compiler-step"><span>0{index + 1}</span><p>{label}</p><div class="step-track"><i></i></div></div>)}</div>
+        </form>
+
+        <article class="bento-card output-card" id="output-card"><div class="terminal-header"><div class="terminal-title"><span class="window-dots"><i></i><i></i><i></i></span><span>Configuration output</span><span class="pill small neutral" id="output-status">AWAITING INPUT</span></div><span class="tiny-mono" id="output-wo">LOCAL ENGINE</span></div>
+          <div class="terminal-toolbar"><div class="output-tabs" role="tablist" aria-label="Configuration output"><button role="tab" class="active" aria-selected="true" data-output="mml" aria-controls="mml-panel" id="mml-tab"><Icon name="code" size={16} />Provisioning MML</button><button role="tab" aria-selected="false" data-output="rollback" aria-controls="rollback-panel" id="rollback-tab"><Icon name="undo" size={16} />Safe rollback</button><button role="tab" aria-selected="false" data-output="ssh" aria-controls="ssh-panel" id="ssh-tab"><Icon name="terminal" size={16} />SSH testbed</button><button role="tab" aria-selected="false" data-output="summary" aria-controls="summary-panel" id="summary-tab"><Icon name="file" size={16} />WO summary</button></div><span class="tiny-mono" id="command-count">0 COMMANDS</span></div>
+          <div id="output-empty" class="empty-state"><span class="empty-icon"><Icon name="terminal" size={26} /></span><h3>Your next configuration starts here.</h3><p>Set your parameters and generate a script to inspect, download or simulate.</p><span class="tiny-mono">INPUT → COMPILE → REVIEW → DEPLOY</span></div>
+          <div id="output-content" hidden>
+            <section id="mml-panel" role="tabpanel" aria-labelledby="mml-tab" data-panel="mml"><div class="code-actions"><span>PROVISIONING SCRIPT <span class="text-muted">/ Huawei Service-V</span></span><div><button class="btn-ghost" data-copy="mml"><Icon name="copy" size={15} />Copy</button><button class="btn-secondary" data-download="mml"><Icon name="down" size={15} />Download MML .txt</button></div></div><pre id="mml-code" class="code-view" tabindex="0" aria-label="Generated provisioning commands"></pre></section>
+            <section id="rollback-panel" role="tabpanel" aria-labelledby="rollback-tab" data-panel="rollback" hidden><div class="code-actions"><span class="text-rose">ROLLBACK DRAFT · REVIEW OWNERSHIP BEFORE USE</span><div><button class="btn-ghost" data-copy="rollback"><Icon name="copy" size={15} />Copy</button><button class="btn-secondary" data-download="rollback"><Icon name="down" size={15} />Download rollback .txt</button></div></div><pre id="rollback-code" class="code-view" tabindex="0" aria-label="Generated rollback draft"></pre></section>
+            <section id="ssh-panel" role="tabpanel" aria-labelledby="ssh-tab" data-panel="ssh" hidden><div class="ssh-controls"><div><p class="eyebrow">EXECUTION TARGET</p><div class="segmented mode-switch"><button class="active" data-mode="simulation" aria-pressed="true">Simulation mode</button><button data-mode="live" aria-pressed="false">Live GGSN testbed</button></div></div><label class="field"><span class="field-label">Testbed node</span><select id="ssh-host" aria-label="Testbed node"></select></label></div><p id="ssh-mode-note" class="ssh-note">Simulation lists commands without opening an SSH connection. Device syntax and impact are not validated.</p><div class="execution-actions"><div class="swipe-control"><span class="swipe-caption" id="swipe-caption">Swipe right to simulate configuration</span><input id="execute-slider" aria-label="Swipe right to execute on selected testbed node" type="range" min="0" max="100" value="0" step="1" /><span class="swipe-arrow"><Icon name="arrow" /></span></div><span class="text-muted">or</span><button class="btn-primary" id="execute-button"><Icon name="terminal" size={17} /><span>Run simulation</span></button></div><pre id="ssh-logs" class="code-view ssh-logs" tabindex="0" aria-live="polite">Ready for simulation. No commands have been sent.</pre></section>
+            <section id="summary-panel" role="tabpanel" aria-labelledby="summary-tab" data-panel="summary" hidden><div class="code-actions"><span>VALIDATED CIQ PAYLOAD · SECRETS REDACTED</span><button class="btn-ghost" data-copy="summary"><Icon name="copy" size={15} />Copy JSON</button></div><pre id="summary-code" class="code-view" tabindex="0"></pre></section>
+          </div>
+        </article>
+      </section>
+
+      <section id="batch-view" role="tabpanel" aria-labelledby="batch-tab" hidden>
+        <div class="studio-heading flex flex-wrap items-center justify-between gap-4"><div><h2>Scale your provisioning. <span class="section-index">/ 02</span></h2><p>One CIQ. Every service. Consistently compiled.</p></div><a class="btn-secondary" href="/api/batch/sample" download><Icon name="down" size={17} />Download sample CIQ template</a></div>
+        <article class="bento-card upload-card"><div class="section-heading"><div class="heading-group"><span class="icon-tile purple"><Icon name="upload" /></span><div><h2>Import a customer information questionnaire</h2><p>Automatic column aliasing, shared validation and individual rollback drafts.</p></div></div><span class="pill small cyan">UP TO 1,000 ROWS</span></div><label id="drop-zone" class="drop-zone"><input type="file" id="batch-file" accept=".csv,.xlsx,.xls" /><span class="upload-symbol"><Icon name="upload" size={30} /></span><strong>Drop your CIQ here, or <span>browse files</span></strong><p>CSV, XLSX or XLS · maximum 10 MB</p><span id="upload-state" class="tiny-mono">YOUR FILE IS PROCESSED BY THE LOCAL PYTHON ENGINE</span></label></article>
+        <div id="batch-results" hidden>
+          <div class="batch-kpis"><article class="bento-card"><span class="kpi-label">Total scripts</span><strong data-counter="batch_scripts">0</strong><Icon name="code" /></article><article class="bento-card"><span class="kpi-label">Unique APNs</span><strong data-counter="batch_apns">0</strong><Icon name="host" /></article><article class="bento-card"><span class="kpi-label">Unique applications</span><strong data-counter="batch_apps">0</strong><Icon name="globe" /></article></div>
+          <article class="bento-card batch-preview"><div class="section-heading"><div><h2>CIQ data preview</h2><p>First 50 rows · security tokens excluded</p></div><div class="flex flex-wrap gap-2"><button class="btn-secondary" id="download-combined"><Icon name="file" size={16} />Combined script .txt</button><button class="btn-primary" id="download-archive"><Icon name="box" size={16} />Complete archive .zip</button></div></div><div class="table-scroll"><table id="preview-table"></table></div><details class="mapping-details"><summary><Icon name="search" size={16} />Auto-aliasing column mapping report<Icon name="chevron" size={16} /></summary><div id="mapping-report"></div></details></article>
+          <article class="bento-card batch-inspector"><div class="section-heading"><div class="heading-group"><span class="icon-tile cyan"><Icon name="code" /></span><div><h2>Per-row script inspector</h2><p>Inspect the full output for each validated CIQ row.</p></div></div><label class="field"><span class="sr-only">Select batch row</span><select id="batch-row"></select></label></div><div class="batch-inspector-toolbar"><div class="output-tabs" role="tablist" aria-label="Batch script inspector"><button class="active" data-batch-tab="mml" role="tab" aria-selected="true">Provisioning MML</button><button data-batch-tab="rollback" role="tab" aria-selected="false">Safe rollback</button><button data-batch-tab="payload" role="tab" aria-selected="false">Payload JSON</button></div><button class="btn-secondary" id="download-row"><Icon name="down" size={16} />Download selected .txt</button></div><pre id="batch-code" class="code-view" tabindex="0" role="tabpanel" aria-label="Selected batch script"></pre></article>
+        </div>
+      </section>
+
+      <article class="bento-card audit-card" id="audit-card"><div class="section-heading"><div class="heading-group"><span class="icon-tile cyan"><Icon name="clock" /></span><div><h2>Every change leaves a trace.</h2><p>Persistent core deployment history <span class="audit-total" id="audit-total">0 events</span></p></div></div><div class="audit-actions"><button id="manage-history" class="btn-secondary"><Icon name="box" size={16} />Manage history</button><button id="export-audit" class="btn-secondary"><Icon name="down" size={16} />Export audit CSV</button></div></div>
+        <div class="audit-toolbar"><div class="audit-filters" role="group" aria-label="Audit action filter"><button class="active" data-audit-filter="All" aria-pressed="true">All events</button><button data-audit-filter="GENERATE MML" aria-pressed="false">Generate MML</button><button data-audit-filter="BATCH_MML_GEN" aria-pressed="false">Batch generation</button><button data-audit-filter="TESTBED_PUSH" aria-pressed="false">Testbed push</button></div><label class="search-field"><Icon name="search" size={16} /><input id="audit-search" type="search" placeholder="Search work orders, APNs, apps…" aria-label="Search audit history" /></label></div>
+        <div class="table-scroll"><table class="audit-table"><thead><tr><th>WORK ORDER / TIME</th><th>ACTION</th><th>APN / APPLICATION</th><th>TARGET NODE</th><th>STATUS</th><th><span class="sr-only">Inspect payload</span></th></tr></thead><tbody id="audit-body"></tbody></table></div><div id="audit-empty" class="audit-empty"><Icon name="clock" size={24} /><p>No events yet. Your first generated script starts the trail.</p></div><div class="audit-footer"><span id="audit-storage"><i class="status-dot"></i> Locally persisted · secrets redacted</span><div class="audit-pagination"><label for="audit-page-size">Rows<select id="audit-page-size"><option>25</option><option>50</option><option>100</option></select></label><span id="audit-showing">0 events</span><button id="audit-previous" class="btn-icon" aria-label="Previous audit page" disabled>←</button><button id="audit-next" class="btn-icon" aria-label="Next audit page" disabled>→</button></div></div>
+      </article>
+      <footer class="page-footer"><span class="footer-brand"><Icon name="layers" size={16} /> RELPOOL CORE <span>/</span> Built for the people behind the network.</span><span>IOH · Core Planning & Engineering <span class="footer-dot">●</span> 2026</span></footer>
+    </main>
+    <dialog id="payload-dialog" aria-labelledby="payload-title"><div class="drawer-heading"><div><p class="eyebrow">AUDIT EVENT INSPECTOR</p><h2 id="payload-title">Work order detail</h2></div><button class="btn-icon" id="close-payload" aria-label="Close payload inspector"><Icon name="close" size={22} /></button></div><p id="payload-meta" class="tiny-mono"></p><pre id="payload-code" class="code-view" tabindex="0"></pre><p class="drawer-note">Validated CIQ payload · sensitive fields redacted by the core audit service.</p></dialog>
+    <dialog id="history-dialog" aria-labelledby="history-title"><div class="drawer-heading"><div><p class="eyebrow">AUDIT STORAGE</p><h2 id="history-title">Manage deployment history</h2></div><button class="btn-icon" id="close-history" aria-label="Close history manager"><Icon name="close" size={22} /></button></div><p class="drawer-note">Keep the active workspace small while preserving deployment evidence in compressed archives.</p><div class="history-storage-grid"><div><span>Active history</span><strong id="history-active-count">0 events</strong><small id="history-active-size">0 B on disk</small></div><div><span>Compressed archives</span><strong id="history-archive-count">0 archives</strong><small id="history-archive-size">0 B on disk</small></div></div><div class="archive-reset-card"><h3>Archive & reset active history</h3><p>The server saves every active event to a downloadable .json.gz archive before clearing active history. Active WO counters then start at zero. Existing archives are retained.</p><label class="archive-confirmation"><input type="checkbox" id="archive-confirmation" />I understand that active history and its counters will start fresh.</label><button id="archive-history" class="btn-primary" disabled><Icon name="box" size={16} /><span>Archive & reset active history</span></button><p id="archive-result" role="status" aria-live="polite"></p></div><h3 class="archives-title">Saved archives</h3><div id="archive-list" class="archive-list"></div></dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <div id="error-banner" class="error-banner" role="alert" hidden><Icon name="shield" size={18} /><span id="error-message"></span><button id="dismiss-error" class="btn-icon" aria-label="Dismiss error"><Icon name="close" size={18} /></button></div>
+    <noscript><p class="error-banner">Enable JavaScript to use provisioning workflows and GSAP animations.</p></noscript>
+    <script is:inline>
+      document.getElementById('reload-workspace').addEventListener('click', function () { window.location.reload(); });
+      function reportFrontendFailure(message) {
+        if (document.documentElement.dataset.frontendReady === 'true') return;
+        var panel = document.getElementById('frontend-error');
+        var detail = document.getElementById('frontend-error-detail');
+        var status = document.getElementById('motion-status');
+        panel.hidden = false;
+        detail.textContent = message;
+        document.getElementById('reload-workspace').hidden = false;
+        if (document.documentElement.dataset.motionReady !== 'true') {
+          status.textContent = 'FRONTEND NOT LOADED';
+          status.className = 'pill small rose';
+        }
+      }
+      window.addEventListener('error', function (event) {
+        if (event.target && event.target.tagName === 'SCRIPT' && event.target.src.indexOf('relpool-app.js') !== -1) {
+          reportFrontendFailure('The application script could not be downloaded. Restart python server.py and reopen http://localhost:8000.');
+        } else if (event.message) {
+          reportFrontendFailure(event.message);
+        }
+      }, true);
+      window.setTimeout(function () {
+        if (document.documentElement.dataset.frontendReady !== 'true') reportFrontendFailure(document.documentElement.dataset.frontendError || 'The frontend did not initialize. Restart python server.py, open http://localhost:8000, then press Ctrl+F5.');
+      }, 8000);
+    </script>
+    <script is:inline defer src="/assets/relpool-app.js"></script>
+  </body>
+</html>
