@@ -1,0 +1,8 @@
+---
+interface Props { name: string; label: string; options?: string[]; value?: string; mono?: boolean; type?: 'text' | 'password'; required?: boolean; hint?: string }
+const { name, label, options, value = '', mono = false, type = 'text', required = true, hint } = Astro.props;
+---
+<label class:list={['field', { 'font-mono': mono }]}>
+  <span class="field-label">{label}{hint && <span class="field-hint">{hint}</span>}</span>
+  {options ? <select name={name} id={name} required={required}>{options.map(option => <option selected={value === option}>{option}</option>)}</select> : <input name={name} id={name} value={value} type={type} required={required} autocomplete="off" maxlength={name.startsWith('he_') ? 256 : 100} />}
+</label>

@@ -1,0 +1,180 @@
+<mxfile host="app.diagrams.net" modified="2026-10-20T13:40:00.000Z" agent="RELPOOL-Automation" version="24.0.0" type="device">
+  <diagram id="relpool_flow_bab2" name="1. Alur Penggunaan Aplikasi (Bab 2 Hal 4)">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- TITLE BANNER -->
+        <mxCell id="title_box" value="&lt;b style=&quot;font-size:16px;&quot;&gt;ALUR PENGGUNAAN &amp; PEMROSESAN SISTEM — RELPOOL CORE AUTOMATION (v2.2)&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px;color:#475569;&quot;&gt;Otomasi Provisioning GGSN PCEF (Huawei Service-V CLI) &amp; PCRF UPCC dari Dokumen CIQ&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1E293B;strokeColor=#0F172A;fontColor=#FFFFFF;align=center;verticalAlign=middle;arcSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="30" width="1080" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- STAGE 1: INPUT CIQ -->
+        <mxCell id="stage1_container" value="TAHAP 1: INPUT DATA CIQ" style="swimlane;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;fontColor=#1E3A8A;fontStyle=1;startSize=30;rounded=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="130" width="210" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="s1_manual" value="&lt;b&gt;Opsi A: Mode Manual&lt;/b&gt;&lt;br&gt;• Form Input Parameter&lt;br&gt;• Quick Preset Demo&lt;br&gt;(TikTok / Gojek / Gaming)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontColor=#1E3A8A;fontSize=11;" vertex="1" parent="stage1_container">
+          <mxGeometry x="15" y="55" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="s1_or" value="ATAU" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#93C5FD;fontColor=#1D4ED8;fontStyle=1;fontSize=10;" vertex="1" parent="stage1_container">
+          <mxGeometry x="75" y="165" width="60" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="s1_batch" value="&lt;b&gt;Opsi B: Mode Batch CIQ&lt;/b&gt;&lt;br&gt;• Upload File .XLSX / .CSV&lt;br&gt;• Multi-Produk / Aplikasi&lt;br&gt;• Template Sample CSV" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontColor=#1E3A8A;fontSize=11;" vertex="1" parent="stage1_container">
+          <mxGeometry x="15" y="220" width="180" height="95" as="geometry" />
+        </mxCell>
+
+        <!-- STAGE 2: SANITASI & VALIDASI -->
+        <mxCell id="stage2_container" value="TAHAP 2: AUTO-SANITASI &amp; VALIDASI" style="swimlane;whiteSpace=wrap;html=1;fillColor=#F0FDF4;strokeColor=#16A34A;fontColor=#14532D;fontStyle=1;startSize=30;rounded=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="305" y="130" width="240" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="s2_alias" value="&lt;b&gt;Auto-Aliasing Kolom CIQ&lt;/b&gt;&lt;br&gt;Mengenali variasi nama kolom dari tim BU / Commercial secara otomatis" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=11;" vertex="1" parent="stage2_container">
+          <mxGeometry x="15" y="50" width="210" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="s2_clean" value="&lt;b&gt;Input Sanitization Layer&lt;/b&gt;&lt;br&gt;• Hapus prefix http:// &amp; https://&lt;br&gt;• Hapus trailing slash (/) &amp; spasi&lt;br&gt;• APN &amp; App otomatis lowercase_underscore&lt;br&gt;• Perbaikan angka Excel (11010.0 → 11010)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="stage2_container">
+          <mxGeometry x="15" y="145" width="210" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="s2_delta" value="&lt;b&gt;Cek Skenario &amp; Inventori*&lt;/b&gt;&lt;br&gt;New Product / Revamp / Reguler Update&lt;br&gt;&lt;i&gt;(*Konfirmasi reuse //EXISTING// host)&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF9C3;strokeColor=#CA8A04;fontColor=#713F12;fontSize=10;dashed=1;dashPattern=5 5;" vertex="1" parent="stage2_container">
+          <mxGeometry x="15" y="280" width="210" height="85" as="geometry" />
+        </mxCell>
+
+        <!-- STAGE 3: RULE ENGINE GENERATOR -->
+        <mxCell id="stage3_container" value="TAHAP 3: RULE ENGINE GENERATOR" style="swimlane;whiteSpace=wrap;html=1;fillColor=#EEF2FF;strokeColor=#4F46E5;fontColor=#312E81;fontStyle=1;startSize=30;rounded=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="580" y="130" width="250" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_mml" value="&lt;b&gt;Provisioning MML Builder&lt;/b&gt;&lt;br&gt;(Huawei Service-V CLI &amp; PCRF UPCC)&lt;hr size=&quot;1&quot;&gt;1. Host (h_&amp;lt;domain&amp;gt; seq 65535)&lt;br&gt;2. Filter (f_&amp;lt;domain&amp;gt; l34 any)&lt;br&gt;3. Filter-Group (fg_gaspol_&amp;lt;app&amp;gt;)&lt;br&gt;4. Charging (cbb-id, cp, catg)&lt;br&gt;5. Rule (r_&amp;lt;app&amp;gt;_&amp;lt;rg&amp;gt;_&amp;lt;sid&amp;gt;)&lt;br&gt;6. User-Profile (crbn_&amp;lt;apn&amp;gt;_sy)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E7FF;strokeColor=#4338CA;fontColor=#1E1B4B;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="stage3_container">
+          <mxGeometry x="15" y="50" width="220" height="185" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_rollback" value="&lt;b&gt;Safe Rollback CLI Builder&lt;/b&gt;&lt;br&gt;Otomatis menyusun perintah &lt;b&gt;undo&lt;/b&gt;&lt;br&gt;dengan urutan ketergantungan terbalik&lt;br&gt;(Lepas binding → hapus rule → hapus group)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE7F3;strokeColor=#DB2777;fontColor=#831843;fontSize=11;" vertex="1" parent="stage3_container">
+          <mxGeometry x="15" y="255" width="220" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- STAGE 4 & 5: OUTPUT, EKSEKUSI & AUDIT -->
+        <mxCell id="stage4_container" value="TAHAP 4 &amp; 5: OUTPUT, EKSEKUSI &amp; AUDIT" style="swimlane;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#475569;fontColor=#0F172A;fontStyle=1;startSize=30;rounded=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="865" y="130" width="275" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="s4_download" value="&lt;b&gt;Download Paket Output&lt;/b&gt;&lt;br&gt;• Satuan: Script .TXT &amp; Rollback .TXT&lt;br&gt;• Batch: Arsip .ZIP (scripts/, rollbacks/,&lt;br&gt;ALL_MML_SCRIPTS.txt, MANIFEST.csv)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#15803D;fontColor=#14532D;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="stage4_container">
+          <mxGeometry x="18" y="50" width="240" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="s4_ssh" value="&lt;b&gt;SSH Testbed Gateway&lt;/b&gt;&lt;br&gt;• &lt;b&gt;Simulation Mode&lt;/b&gt; (Dry-Run Aman)&lt;br&gt;• &lt;b&gt;Live GGSN Testbed&lt;/b&gt; (Paramiko SSH&lt;br&gt;dengan Channel Buffer Draining)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2FE;strokeColor=#0284C7;fontColor=#0C4A6E;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="stage4_container">
+          <mxGeometry x="18" y="165" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="s5_audit" value="&lt;b&gt;Tahap 5: Persistent Audit Trail&lt;/b&gt;&lt;br&gt;Tersimpan otomatis di &lt;i&gt;audit_history.json&lt;/i&gt;&lt;br&gt;(WO ID, Timestamp, APN, Status, &amp;&lt;br&gt;Payload Inspector dengan sensor kunci)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#FEF3C7;strokeColor=#D97706;fontColor=#78350F;fontSize=10;" vertex="1" parent="stage4_container">
+          <mxGeometry x="18" y="275" width="240" height="95" as="geometry" />
+        </mxCell>
+
+        <!-- ARROWS BETWEEN STAGES -->
+        <mxCell id="edge_1_2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2563EB;" edge="1" parent="1" source="stage1_container" target="stage2_container">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_2_3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#16A34A;" edge="1" parent="1" source="stage2_container" target="stage3_container">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_3_4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#4F46E5;" edge="1" parent="1" source="stage3_container" target="stage4_container">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- LEGEND BOX AT BOTTOM -->
+        <mxCell id="legend_box" value="&lt;b&gt;Keterangan Warna (Legend):&lt;/b&gt;   🔵 &lt;b&gt;Biru:&lt;/b&gt; Input &amp; Koneksi Testbed   |   🟢 &lt;b&gt;Hijau:&lt;/b&gt; Sanitasi &amp; Output Valid   |   🟣 &lt;b&gt;Ungu/Merah Muda:&lt;/b&gt; Rule Engine &amp; Safe Rollback   |   🟡 &lt;b&gt;Kuning (Garis Putus-Putus):&lt;/b&gt; Poin Diskusi / Konfirmasi Tim Core (Bab 5)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#CBD5E1;fontColor=#334155;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="545" width="1080" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="relpool_mml_hierarchy" name="2. Hirarki MML Huawei &amp; Rollback (Bab 2 Hal 5)">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- HEADER -->
+        <mxCell id="h2_title" value="&lt;b style=&quot;font-size:16px;&quot;&gt;URUTAN HIRARKI PEMBUATAN SCRIPT HUAWEI SERVICE-V &amp; PRINSIP SAFE ROLLBACK&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px;color:#475569;&quot;&gt;Dependensi Antar-Objek pada Provisioning Maju vs Urutan Pembatalan (Undo) Terbalik&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1E293B;strokeColor=#0F172A;fontColor=#FFFFFF;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="30" width="1080" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- PROVISIONING FLOW (TOP ROW) -->
+        <mxCell id="p_label" value="&lt;b&gt;ALUR PROVISIONING (URUTAN PEMBUATAN OBJEK MAJU)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontColor=#1E3A8A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="115" width="1080" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m1_host" value="&lt;b&gt;1. HOST&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;&lt;font face=&quot;Courier New&quot; size=&quot;1&quot;&gt;host h_&amp;lt;domain&amp;gt;&lt;br&gt;domain &amp;lt;url&amp;gt;&lt;br&gt;sequence 65535&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#2563EB;fontColor=#1E3A8A;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="170" width="155" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m2_filter" value="&lt;b&gt;2. FILTER&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;&lt;font face=&quot;Courier New&quot; size=&quot;1&quot;&gt;filter f_&amp;lt;domain&amp;gt;&lt;br&gt;l34-protocol any&lt;br&gt;host h_&amp;lt;domain&amp;gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#2563EB;fontColor=#1E3A8A;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="245" y="170" width="155" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m3_fg" value="&lt;b&gt;3. FILTER-GROUP&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;&lt;font face=&quot;Courier New&quot; size=&quot;1&quot;&gt;filter-group&lt;br&gt;fg_gaspol_&amp;lt;app&amp;gt;&lt;br&gt;filter f_&amp;lt;domain&amp;gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#2563EB;fontColor=#1E3A8A;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="430" y="170" width="155" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m4_chg" value="&lt;b&gt;4. CHARGING &amp; CATG&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;&lt;font face=&quot;Courier New&quot; size=&quot;1&quot;&gt;cbb-id online/offline&lt;br&gt;charge-property cp_..&lt;br&gt;category-group catg_..&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#2563EB;fontColor=#1E3A8A;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="615" y="170" width="155" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m5_rule" value="&lt;b&gt;5. RULE DEFINITION&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;&lt;font face=&quot;Courier New&quot; size=&quot;1&quot;&gt;rule r_&amp;lt;app&amp;gt;_&amp;lt;rg&amp;gt;_&amp;lt;sid&amp;gt;&lt;br&gt;filter-group fg_...&lt;br&gt;priority 27000&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#2563EB;fontColor=#1E3A8A;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="800" y="170" width="155" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m6_up" value="&lt;b&gt;6. USER-PROFILE&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;&lt;font face=&quot;Courier New&quot; size=&quot;1&quot;&gt;user-profile crbn_&amp;lt;apn&amp;gt;_sy&lt;br&gt;rule-binding r_...&lt;br&gt;priority 27000&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="985" y="170" width="155" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_m1_m2" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#2563EB;" edge="1" parent="1" source="m1_host" target="m2_filter">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_m2_m3" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#2563EB;" edge="1" parent="1" source="m2_filter" target="m3_fg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_m3_m4" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#2563EB;" edge="1" parent="1" source="m3_fg" target="m4_chg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_m4_m5" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#2563EB;" edge="1" parent="1" source="m4_chg" target="m5_rule">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_m5_m6" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#16A34A;" edge="1" parent="1" source="m5_rule" target="m6_up">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- SAFE ROLLBACK FLOW (BOTTOM ROW) -->
+        <mxCell id="rb_label" value="&lt;b&gt;ALUR SAFE ROLLBACK CLI (URUTAN PEMBATALAN TERBALIK / INVERSE UNDO)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE7F3;strokeColor=#DB2777;fontColor=#831843;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="320" width="1080" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rb1_unbind" value="&lt;b&gt;LANGKAH 1 ROLLBACK&lt;/b&gt;&lt;br&gt;Lepaskan Ikatan di User-Profile&lt;hr size=&quot;1&quot;&gt;&lt;font face=&quot;Courier New&quot; size=&quot;1&quot;&gt;user-profile crbn_&amp;lt;apn&amp;gt;_sy&lt;br&gt;undo rule-binding r_&amp;lt;app&amp;gt;_...&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF1F2;strokeColor=#E11D48;fontColor=#881337;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="375" width="245" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rb2_rule" value="&lt;b&gt;LANGKAH 2 ROLLBACK&lt;/b&gt;&lt;br&gt;Hapus Definisi Rule&lt;hr size=&quot;1&quot;&gt;&lt;font face=&quot;Courier New&quot; size=&quot;1&quot;&gt;undo rule r_&amp;lt;app&amp;gt;_&amp;lt;rg&amp;gt;_&amp;lt;sid&amp;gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF1F2;strokeColor=#E11D48;fontColor=#881337;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="340" y="375" width="245" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rb3_chg" value="&lt;b&gt;LANGKAH 3 ROLLBACK&lt;/b&gt;&lt;br&gt;Hapus Category &amp; Charging&lt;hr size=&quot;1&quot;&gt;&lt;font face=&quot;Courier New&quot; size=&quot;1&quot;&gt;undo category-group catg_...&lt;br&gt;undo charge-property cp_...&lt;br&gt;undo cbb-id cbbid_...&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF1F2;strokeColor=#E11D48;fontColor=#881337;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="620" y="375" width="245" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rb4_fg" value="&lt;b&gt;LANGKAH 4 ROLLBACK&lt;/b&gt;&lt;br&gt;Hapus Filter-Group &amp; Simpan&lt;hr size=&quot;1&quot;&gt;&lt;font face=&quot;Courier New&quot; size=&quot;1&quot;&gt;undo filter-group fg_gaspol_&amp;lt;app&amp;gt;&lt;br&gt;save / Y&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF1F2;strokeColor=#E11D48;fontColor=#881337;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="895" y="375" width="245" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_rb1_2" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#E11D48;" edge="1" parent="1" source="rb1_unbind" target="rb2_rule">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rb2_3" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#E11D48;" edge="1" parent="1" source="rb2_rule" target="rb3_chg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rb3_4" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#E11D48;" edge="1" parent="1" source="rb3_chg" target="rb4_fg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- YELLOW CONFIRMATION CALLOUT (BAB 5) -->
+        <mxCell id="confirm_box" value="&lt;b&gt;🟡 POIN KONFIRMASI TEKNIS TIM CORE (BAB 5):&lt;/b&gt;&lt;br&gt;1. &lt;b&gt;Dual Format Output:&lt;/b&gt; Penyelarasan kapan menggunakan format interaktif &lt;i&gt;Service-V CLI&lt;/i&gt; vs format batch &lt;i&gt;U2000/MAE MML (ADD HOST / ADD FLOWFILTER / ADD RULE)&lt;/i&gt;.&lt;br&gt;2. &lt;b&gt;Bundling Multi-Aplikasi:&lt;/b&gt; Konfirmasi pola kenaikan priority &lt;b&gt;+10 per rule&lt;/b&gt; (27000, 27010, dst.) pada 1 user-profile bersama (contoh: BusinessPack 9 aplikasi).&lt;br&gt;3. &lt;b&gt;Reuse Objek Eksisting:&lt;/b&gt; Pengecekan inventori host/filter yang sudah ada (&lt;i&gt;//EXISTING//&lt;/i&gt;) agar tidak ter-create ulang dan tidak ikut terhapus saat rollback." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF9C3;strokeColor=#CA8A04;fontColor=#713F12;fontSize=11;align=left;spacingLeft=14;dashed=1;dashPattern=6 6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="520" width="1080" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+
